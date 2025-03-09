@@ -5,19 +5,15 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueDevTools(),
-    tailwindcss(),
-  ],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    },
-  },
+  base: './', // Ensures correct paths in production
+  plugins: [vue(), vueDevTools(), tailwindcss()],
+  resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
   build: {
     rollupOptions: {
-      input: 'src/main.js' // Ensure Vite knows where to start
+      input: {
+        main: fileURLToPath(new URL('./src/main.js', import.meta.url))
+      }
     }
   }
-})
+});
+

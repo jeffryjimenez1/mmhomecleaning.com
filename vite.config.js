@@ -2,10 +2,9 @@ import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueDevTools from 'vite-plugin-vue-devtools';
-import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  plugins: [vue(), vueDevTools(), tailwindcss()],
+  plugins: [vue(), vueDevTools()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
@@ -13,7 +12,13 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      input: fileURLToPath(new URL('./src/main.js', import.meta.url))
-    }
+      input: fileURLToPath(new URL('./index.html', import.meta.url))
+    },
+    outDir: 'dist',
+    assetsDir: 'assets'
+  },
+  server: {
+    strictPort: true,
+    open: true
   }
 });

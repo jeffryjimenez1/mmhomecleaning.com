@@ -1,6 +1,8 @@
 <script setup>
 
 import Contact from "@/components/Contact.vue";
+import Footer from "@/components/Footer.vue";
+
 </script>
 
 <template>
@@ -8,6 +10,8 @@ import Contact from "@/components/Contact.vue";
   <div class="contact-page h-screen grid">
     <Contact/>
   </div>
+
+  <Footer/>
 
 </template>
 

@@ -22,7 +22,7 @@ const toggleMenu = () => {
 <template>
   <nav class="bg-white w-full fixed top-0 z-50 px-6 md:px-[200px] py-4 flex items-center justify-between shadow-md">
     <router-link to="/" class="logo">
-      <img class="w-12 md:w-16 rounded-full" src="../assets/img/logo.jpg" alt="Logo">
+      <img class="w-12 md:w-16 rounded-full" src="../../public/logo.jpg" alt="Logo">
     </router-link>
 
     <button @click="toggleMenu" class="md:hidden text-black focus:outline-none">

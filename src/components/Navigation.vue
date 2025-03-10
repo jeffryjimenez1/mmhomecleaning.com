@@ -14,10 +14,6 @@ const links = [
 
 const isActive = (path) => computed(() => route.path === path);
 
-onMounted(() => {
-  console.log(route.path);
-});
-
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };

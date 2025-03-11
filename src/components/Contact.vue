@@ -4,7 +4,7 @@
 
 <template>
 
-  <div class="contact p-10 md:flex md:items-center md:justify-center">
+  <div class="hero-text contact p-10 md:flex md:items-center md:justify-center">
     <div class="contact-pic md:w-1/3 md:order-1 mt-[90px]">
       <img src="../assets/img/contact.jpg" alt="" class="h-[400px]">
     </div>
@@ -21,4 +21,20 @@
 </template>
 
 <style scoped>
+
+@keyframes heroText {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-text {
+  animation: heroText 1.5s ease-out forwards;
+}
+
 </style>

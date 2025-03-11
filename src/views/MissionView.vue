@@ -5,7 +5,7 @@ import Footer from "@/components/Footer.vue";
 <template>
   <div class="md:h-[calc(100vh-50px)] mt-12 bg-green-100 mission md:flex md:flex-col md:align-center md:justify-center p-10 mt-[90px]">
 
-    <div class="bg-teal-100 md:w-1/2 m-auto about-text p-5 rounded-lg">
+    <div class="hero-text bg-teal-100 md:w-1/2 m-auto about-text p-5 rounded-lg">
       <h1 class="md:text-5xl text-2xl text-center">Our Mission</h1>
       <p class="md:text-2xl text-1xl mt-5 leading-relaxed">At MM Homecleaning, our mission is to create cleaner, healthier, and more comfortable spaces for our clients. We are committed to delivering high-quality cleaning services with professionalism, reliability, and attention to detail. Our team takes pride in using eco-friendly products and industry-leading techniques to ensure every home and business we serve is spotless, safe, and inviting.
 
@@ -26,7 +26,19 @@ import Footer from "@/components/Footer.vue";
   background-position: center;
 }
 
-@media (min-width: 1024px) {
 
+@keyframes heroText {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-text {
+  animation: heroText 1.5s ease-out forwards;
 }
 </style>

@@ -1,10 +1,36 @@
 <script setup>
+import {onBeforeUnmount, onMounted, ref} from "vue";
 
+const sectionRef = ref(null);
+const isVisible = ref(false);
+let observer = null;
+
+onMounted(()=> {
+  observer = new IntersectionObserver((entries)=>{
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        isVisible.value = true;
+      }
+    })
+  },{ threshold: 0.1 })
+
+  if(sectionRef.value) {
+    observer.observe(sectionRef.value);
+  }
+});
+
+onBeforeUnmount(() => {
+  if (observer && sectionRef.value) {
+    observer.unobserve(sectionRef.value);
+  }
+});
 </script>
 
 <template>
 
-  <div class="hero-text contact p-10 md:flex md:items-center md:justify-center">
+  <div ref="sectionRef" class="contact p-10 md:flex md:items-center md:justify-center"
+       :class="{ visible: isVisible, 'contact-text-section': isVisible }"
+  >
     <div class="contact-pic md:w-1/3 md:order-1 mt-[90px]">
       <img src="../assets/img/contact.jpg" alt="" class="h-[400px]">
     </div>
@@ -22,10 +48,10 @@
 
 <style scoped>
 
-@keyframes heroText {
+@keyframes contactText {
   0% {
     opacity: 0;
-    transform: translateY(100px);
+    transform: translateY(200px);
   }
   100% {
     opacity: 1;
@@ -33,8 +59,15 @@
   }
 }
 
-.hero-text {
-  animation: heroText 1.5s ease-out forwards;
+.contact-text-section {
+  opacity: 0;
+  animation: contactText 1.5s ease-out forwards;
 }
+
+
+.contact-text-section.visible {
+  opacity: 1;
+}
+
 
 </style>

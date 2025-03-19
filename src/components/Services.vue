@@ -1,10 +1,36 @@
 <script setup>
 import ServicesItem from "@/components/ServicesItem.vue";
+import {onBeforeUnmount, onMounted, ref} from "vue";
+
+
+const sectionRef = ref(null);
+const isVisible = ref(false);
+let observer = null;
+
+onMounted(()=> {
+  observer = new IntersectionObserver((entries)=>{
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        isVisible.value = true;
+      }
+    })
+  },{ threshold: 0.1 })
+
+  if(sectionRef.value) {
+    observer.observe(sectionRef.value);
+  }
+});
+
+onBeforeUnmount(() => {
+  if (observer && sectionRef.value) {
+    observer.unobserve(sectionRef.value);
+  }
+});
 
 </script>
 
 <template>
-    <div class="services hero-text">
+    <div class="services " ref="sectionRef" :class="{ visible: isVisible, 'hero-text': isVisible }">
       <div class="heroText services-title w-full text-center mt-10 md:text-6xl text-3xl">
         OUR SERVICES
       </div>
@@ -48,7 +74,7 @@ import ServicesItem from "@/components/ServicesItem.vue";
 @keyframes heroText {
   0% {
     opacity: 0;
-    transform: translateY(100px);
+    transform: translateY(200px);
   }
   100% {
     opacity: 1;
@@ -60,5 +86,15 @@ import ServicesItem from "@/components/ServicesItem.vue";
   animation: heroText 1.5s ease-out forwards;
 }
 
+
+.services {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.6s ease-out;
+}
+
+.services.visible {
+  opacity: 1;
+}
 
 </style>

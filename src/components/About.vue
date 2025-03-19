@@ -1,9 +1,34 @@
 <script setup>
+import {onBeforeUnmount, onMounted, ref} from "vue";
+
+const sectionRef = ref(null);
+const isVisible = ref(false);
+let observer = null;
+
+onMounted(()=> {
+  observer = new IntersectionObserver((entries)=>{
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        isVisible.value = true;
+      }
+    })
+  },{ threshold: 0.1 })
+
+  if(sectionRef.value) {
+    observer.observe(sectionRef.value);
+  }
+});
+
+onBeforeUnmount(() => {
+  if (observer && sectionRef.value) {
+    observer.unobserve(sectionRef.value);
+  }
+});
 
 </script>
 
 <template>
-    <div class="hero-text bg-teal-100 about md:h-screen md:flex md:items-center py-10">
+    <div ref="sectionRef" class="bg-teal-100 about md:h-screen md:flex md:items-center py-10"  :class="{ visible: isVisible, 'about-text-section': isVisible }">
       <div class="about-pic m-auto md:ml-0 md:w-1/2 md:h-[90%] h-[300px] w-[80%]"></div>
 
       <div class="about-text md:w-[60%] p-10">
@@ -47,10 +72,10 @@
 }
 
 
-@keyframes heroText {
+@keyframes aboutText {
   0% {
     opacity: 0;
-    transform: translateY(100px);
+    transform: translateY(200px);
   }
   100% {
     opacity: 1;
@@ -58,9 +83,16 @@
   }
 }
 
-.hero-text {
-  animation: heroText 1.5s ease-out forwards;
+.about-text-section {
+  opacity: 0;
+  animation: aboutText 1.5s ease-out forwards;
+  transform: translateY(50px);
+  transition: all 0.6s ease-out;
 }
 
+
+.about-text-section.visible {
+  opacity: 1;
+}
 
 </style>
